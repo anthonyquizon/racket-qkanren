@@ -1,6 +1,6 @@
 #lang racket
 
-(provide empty-s == call/fresh conj disj)
+(provide empty-s == call/fresh conj disj call/empty-s) 
 
 (define (assp proc alist)
   (let loop ((alist alist))
@@ -20,7 +20,15 @@
   (let [(pr (and (var? u) (assp (lambda [v] (var=? u v)) s)))]
     (if pr (walk (cdr pr) s) u)))
 
-(define (ext-s x v s) `((,x . ,v) . ,s))
+(define (occurs-check x v s)
+  (let [(v (walk v s))]
+    (cond
+      [(var? v) (var=? v x)]
+      [else (and (pair? v) (or (occurs-check x (car v) s)
+                               (occurs-check x (cdr v) s)))])))
+
+(define (ext-s x v s) 
+  (if (occurs-check x v s) #f `((,x . ,v) . ,s)))
 
 (define (== u v)
   (lambda [s/c]
@@ -41,6 +49,8 @@
        (let [(s (unify (car u) (car v) s))]
          (and s (unify (cdr u) (cdr v) s)))]
       [else (and (eqv? u v) s)])))
+
+(define (call/empty-s g) (g empty-s))
 
 (define (call/fresh f)
   (lambda [s/c]

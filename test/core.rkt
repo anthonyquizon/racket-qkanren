@@ -1,6 +1,6 @@
 #lang racket
 
-(require "../src/microkanren.rkt"
+(require "../src/core.rkt"
          rackunit)
 
 (check-equal? 

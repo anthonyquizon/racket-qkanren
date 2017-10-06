@@ -1,5 +1,7 @@
 #lang racket
 
+(provide empty-s == call/fresh conj disj)
+
 (define (assp proc alist)
   (let loop ((alist alist))
     (if (null? alist)
@@ -56,10 +58,14 @@
 (define (mplus $1 $2)
   (cond
     [(null? $1) $2]
-    [else (cons (car $1) (mplus (cdr $1) ($2)))]))
+    [(procedure? $1) (lambda [] (mplus ($1) $2))]
+    [else (cons (car $1) (mplus (cdr $1) $2))]))
 
 (define (bind $ g)
   (cond
     [(null? $) mzero]
+    [(procedure? $) (lambda [] (bind ($) g))]
     [else (mplus (g (car $)) (bind (cdr $) g))]))
+
+
 

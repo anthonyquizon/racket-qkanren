@@ -14,6 +14,7 @@
        (conj (== q 5) (== q 6)))) empty-s) 
   '())
 
+
 (check-equal? 
   ((call/fresh 
      (lambda [q] 
@@ -31,3 +32,20 @@
   '((((#(0) . 5)) . 2)
     (((#(1) . 5) (#(0) . #(1))) . 2)))
 
+(define (sixes x)
+  (disj (== x 6) (lambda [s/c]  (lambda [] ((sixes x) s/c)))))
+
+(define (fives x)
+  (disj (== x 5) (lambda [s/c]  (lambda [] ((fives x) s/c)))))
+
+(check-equal? 
+  (let* [($ ((call/fresh (lambda [x] (disj (fives x) (sixes x)))) empty-s))
+         ($^ ((cdr $)))
+         ($^^ ((cdr $^)))
+         (s (car $))
+         (s^ (car $^))
+         (s^^ (car $^^))]
+    `(,s ,s^ ,s^^))
+  '((((#(0) . 5)) . 1) 
+    (((#(0) . 6)) . 1)
+    (((#(0) . 5)) . 1)))

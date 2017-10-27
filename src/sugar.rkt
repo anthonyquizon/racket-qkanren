@@ -1,5 +1,8 @@
 #lang racket
 
+(require (prefix-in c: "./core.rkt")
+         (prefix-in h: "./helpers.rkt"))
+
 (require (for-syntax (prefix-in c: "./core.rkt"))
          (for-syntax (prefix-in h: "./helpers.rkt")))
 

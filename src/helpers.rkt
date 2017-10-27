@@ -4,6 +4,7 @@
 
 (provide pull
          take
+         take-all
          reify)
 
 (define (pull $) 
@@ -17,7 +18,7 @@
 
 (define (take n $)
   (if (zero? n) '()
-    (let [($ (pull))]
+    (let [($ (pull $))]
       (cond
         [(null? $) '()]
         [else (cons (car $) (take (- n 1) (cdr $)))]))))

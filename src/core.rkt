@@ -1,12 +1,12 @@
 #lang racket
 
 (provide 
-  empty-s 
+  empty-state 
   == 
   call/fresh 
   conj 
   disj 
-  call/empty-s 
+  call/empty-state 
   var 
   var? 
   var=?
@@ -21,7 +21,7 @@
           p
           (loop (cdr alist)))))))
 
-(define empty-s '(() . 0))
+(define empty-state '(() . 0))
 (define (var c) (vector c))
 (define (var? x) (vector? x))
 (define (var=? x1 x2) (= (vector-ref x1 0) (vector-ref x2 0)))
@@ -60,7 +60,7 @@
          (and s (unify (cdr u) (cdr v) s)))]
       [else (and (eqv? u v) s)])))
 
-(define (call/empty-s g) (g empty-s))
+(define (call/empty-state g) (g empty-state))
 
 (define (call/fresh f)
   (lambda [s/c]

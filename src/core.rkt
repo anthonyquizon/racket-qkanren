@@ -1,6 +1,16 @@
 #lang racket
 
-(provide empty-s == call/fresh conj disj call/empty-s) 
+(provide 
+  empty-s 
+  == 
+  call/fresh 
+  conj 
+  disj 
+  call/empty-s 
+  var 
+  var? 
+  var=?
+  walk) 
 
 (define (assp proc alist)
   (let loop ((alist alist))

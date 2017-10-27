@@ -3,6 +3,14 @@
 (require (for-syntax (prefix-in c: "./core.rkt"))
          (for-syntax (prefix-in h: "./helpers.rkt")))
 
+(provide Zzz
+         conj+
+         disj+
+         conde
+         fresh
+         run
+         run*)
+
 (define-syntax Zzz
   (syntax-rules []
     [(_ g) (lambda (s/c) 

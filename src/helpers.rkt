@@ -1,3 +1,10 @@
+#lang racket
+
+(require (prefix-in c: "core.rkt"))
+
+(provide pull
+         take
+         reify)
 
 (define (pull $) 
   (if (procedure? $) (pull ($)) $))
@@ -9,8 +16,7 @@
       (cons (car $) (take-all (cdr $)))))) 
 
 (define (take n $)
-  (if (zero? n) 
-    '()
+  (if (zero? n) '()
     (let [($ (pull))]
       (cond
         [(null? $) '()]
@@ -20,13 +26,13 @@
   (map reify-state/1st-var s/c*))
 
 (define (reify-state/1st-var s/c)
-  (let [(v (walk* (var 0) (car s/c)))]
+  (let [(v (walk* (c:var 0) (car s/c)))]
     (walk* v (reify-s v '()))))
 
 (define (reify-s v s)
-  (let [(v (walk v s))]
+  (let [(v (c:walk v s))]
     (cond
-      [(var? v)
+      [(c:var? v)
        (let [(n (reify-name (length s)))]
          (cons `(,v . ,n) s))]
       [(pair? v) (reify-s (cdr v) (reify-s (car v) s))]
@@ -37,9 +43,9 @@
     (string-append "_" "." (number->string n))))
 
 (define (walk* v s)
-  (let [(v (walk v s))]
+  (let [(v (c:walk v s))]
     (cond
-      [(var? v) v]
+      [(c:var? v) v]
       [(pair? v) (cons (walk* (car v) s)
                        (walk* (cdr v) s))]
       [else v])))

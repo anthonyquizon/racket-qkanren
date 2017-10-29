@@ -33,6 +33,7 @@
      (b:call/fresh (lambda [x0] (fresh [x ...] g0 g ...)))]))
 
 (define-syntax-rule (run n/b (q) g g* ...)
-  (h:take n/b (h:pull 
-                ((fresh (q) g g* ...) `(,c:S0 . 0)))))
+  (let ([init-count 0]) 
+   (h:take n/b (h:pull 
+                ((fresh (q) g g* ...) `(,c:S0 . ,init-count))))))
 

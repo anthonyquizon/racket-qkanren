@@ -1,11 +1,16 @@
 #lang racket
 
-(require (prefix-in s: "impl/syntax.rkt")
-         (prefix-in c: "impl/constraints.rkt"))
+(require 
+  (prefix-in b: "impl/base.rkt")
+  (prefix-in s: "impl/syntax.rkt")
+  (prefix-in c: "impl/constraints.rkt"))
 
 (provide 
-  (rename-out [c:== ==]
-              [s:fresh fresh]
-              [s:conde conde]
-              [s:run run]))
+  (rename-out 
+    [b:var var]
+    [b:var? var?]
+    [c:== ==]
+    [s:fresh fresh]
+    [s:conde conde]
+    [s:run run]))
 

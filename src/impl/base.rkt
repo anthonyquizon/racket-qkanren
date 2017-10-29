@@ -1,5 +1,7 @@
 #lang racket
 
+(require racket/struct)
+
 (provide 
   call/fresh 
   conj 
@@ -10,8 +12,21 @@
   unify
   walk) 
 
-(define (var n) n)
-(define (var? n) (number? n))
+(struct var (n)
+  #:methods 
+  gen:custom-write
+  [(define write-proc
+     (make-constructor-style-printer 
+       (lambda [_v] 'var)
+       (lambda [v] `(,(var-n v)))))]
+  #:methods
+  gen:equal+hash
+  [(define (equal-proc a b equal?-recur)
+     (equal?-recur (var-n a) (var-n b)))
+   (define (hash-proc a hash-recur)
+     (hash-recur (* 2341239121 (var-n a))))
+   (define (hash2-proc a hash2-recur)
+     (hash2-recur (var-n a)))])
 
 (define ((call/fresh f) S/c)
   (let [(S (car S/c))  

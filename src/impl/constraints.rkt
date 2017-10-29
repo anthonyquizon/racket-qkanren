@@ -35,7 +35,7 @@
                    [== (syntax-local-introduce #'==)])
        #'(begin 
            (define invalid? (make-invalid? (cid ...) p ...))
-           (define S0 (make-immutable-hasheqv '((==) (cid) ...)))
+           (define S0 (make-immutable-hash '((==) (cid) ...)))
            (define == (make-constraint-goal-constructor '==))
            (define cid (make-constraint-goal-constructor 'cid))
            ...))]))

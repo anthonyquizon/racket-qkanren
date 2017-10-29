@@ -6,13 +6,13 @@
 (check-equal? 
   (run 1 [q]
     (== q 5))
-  `((#hasheqv((== . ((,(var 0) . 5)))) . 1)))
+  `((#hash((== . ((,(var 0) . 5)))) . 1)))
 
 (check-equal? 
   (run 1 [q]
     (fresh [a] 
       (== a q)))
-  `((#hasheqv((== . ((,(var 1) . ,(var 0))))) . 2)))
+  `((#hash((== . ((,(var 1) . ,(var 0))))) . 2)))
 
 
 (check-equal? 
@@ -20,6 +20,6 @@
     (conde 
       [(== q 5)]
       [(== q 4)]))
-  `((#hasheqv((== . ((,(var 0) . 5)))) . 1)
-    (#hasheqv((== . ((,(var 0) . 4)))) . 1)))
+  `((#hash((== . ((,(var 0) . 5)))) . 1)
+    (#hash((== . ((,(var 0) . 4)))) . 1)))
 

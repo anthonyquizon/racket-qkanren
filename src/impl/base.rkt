@@ -36,7 +36,7 @@
 (define (occurs? x v s)
   (let [(v (walk v s))]
     (cond
-      [(var? v) (eqv? v x)]
+      [(var? v) (equal? v x)]
       [(pair? v) (or (occurs? x (car v) s)
                     (occurs? x (cdr v) s))]
       [else #f])))
@@ -52,7 +52,7 @@
   (let [(u (walk u s))
         (v (walk v s))]
     (cond 
-      [(eqv? u v) s]
+      [(equal? u v) s]
       [(var? u) (ext-s u v s)]
       [(var? v) (ext-s v u s)]
       [(and (pair? u) (pair? v))

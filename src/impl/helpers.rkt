@@ -22,3 +22,4 @@
     [else (cons (car $)
                 (take (and n (- n 1))
                       (pull (cdr $))))]))
+

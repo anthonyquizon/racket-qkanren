@@ -6,6 +6,8 @@
 (provide
   S0
   ==
+  =/=
+  define-relation
   )
 
 (define (ext-S S key terms) 
@@ -22,6 +24,9 @@
         [(valid-== (hash-ref S '==)) 
          => (lambda [s] (or (p s) ...))]
         [else #t]))))
+
+(define-syntax-rule (define-relation (rid . args) g)
+  (define ((rid . args) S/c) (delay/name (g S/c))))
 
 (define (valid-== ==)
   (foldr 
@@ -40,5 +45,12 @@
            (define cid (make-constraint-goal-constructor 'cid))
            ...))]))
 
-(make-constraint-system ()) 
+
+(define (same-s? u v s) (equal? (b:unify u v s) s))
+
+(make-constraint-system 
+  (=/=)
+  (lambda [s] 
+    (ormap (lambda [pr] 
+             (same-s? (car pr) (cdr pr) s)) =/=))) 
 

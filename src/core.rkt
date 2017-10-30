@@ -9,8 +9,10 @@
   (rename-out 
     [b:var var]
     [b:var? var?]
-    [c:== ==]
     [s:fresh fresh]
     [s:conde conde]
-    [s:run run]))
+    [s:run run]
+    [c:define-relation define-relation]
+    [c:== ==]
+    [c:=/= =/=]))
 

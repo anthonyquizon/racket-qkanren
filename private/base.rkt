@@ -1,4 +1,4 @@
-#lang racket
+#lang racket 
 
 (require racket/struct)
 
@@ -12,7 +12,7 @@
   unify
   walk) 
 
-(struct var (n)
+(struct var (n) 
   #:methods 
   gen:custom-write
   [(define write-proc

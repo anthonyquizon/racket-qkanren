@@ -7,8 +7,11 @@
   S0
   ==
   =/=
-  define-relation
-  )
+  define-relation)
+
+;; TODO define term
+;;      define subs
+;;      define goal
 
 (define (ext-S S key terms) 
   (hash-update S key ((curry cons) (apply list* terms))))
@@ -21,8 +24,7 @@
   (lambda [S] 
     (let ([cid (hash-ref S 'cid)] ...)
       (cond 
-        [(valid-== (hash-ref S '==)) 
-         => (lambda [s] (or (p s) ...))]
+        [(valid-== (hash-ref S '==)) => (lambda [s] (or (p s) ...))]
         [else #t]))))
 
 (define-syntax-rule (define-relation (rid . args) g)
@@ -44,7 +46,6 @@
            (define == (make-constraint-goal-constructor '==))
            (define cid (make-constraint-goal-constructor 'cid))
            ...))]))
-
 
 (define (same-s? u v s) (equal? (b:unify u v s) s))
 

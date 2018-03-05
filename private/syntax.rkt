@@ -2,9 +2,8 @@
 
 (require (prefix-in b: "base.rkt")
          (prefix-in h: "helpers.rkt")
-         (prefix-in c: "constraints.rkt"))
-
-(require (for-syntax (prefix-in b: "base.rkt"))
+         (prefix-in c: "constraints.rkt")
+         (for-syntax (prefix-in b: "base.rkt"))
          (for-syntax (prefix-in h: "helpers.rkt"))
          (for-syntax (prefix-in c: "constraints.rkt")))
 

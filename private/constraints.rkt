@@ -9,10 +9,6 @@
   =/=
   define-relation)
 
-;; TODO define term
-;;      define subs
-;;      define goal
-
 (define (ext-S S key terms) 
   (hash-update S key ((curry cons) (apply list* terms))))
 
@@ -50,8 +46,23 @@
 (define (same-s? u v s) (equal? (b:unify u v s) s))
 
 (make-constraint-system 
-  (=/=)
-  (lambda [s] 
-    (ormap (lambda [pr] 
-             (same-s? (car pr) (cdr pr) s)) =/=))) 
+  (=/= +=fd)
+
+  (lambda (s)
+    (ormap (lambda (pr)
+             (same-s? (car pr) (cdr pr) s)) =/=))
+
+  (lambda (s)
+    (ormap (lambda (pr)
+             (same-s? (car pr) (cdr pr) s)) +=fd))
+  
+  ;; <=fd
+  ;; >=fd
+  ;; +fd 
+  ;; -fd 
+  ;; *fd 
+  ;; /fd 
+  ;; =fd
+
+  ) 
 

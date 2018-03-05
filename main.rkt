@@ -30,7 +30,6 @@
     `((#hash((=/= . ())
              (== . ((,(var 1) . ,(var 0))))) . 2)))
 
-
   (check-equal? 
     (run 2 [q]
       (conde 
